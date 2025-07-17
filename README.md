@@ -48,19 +48,18 @@ O sistema é focado em **cadastros diversos**, inicialmente de usuários, mas co
 ### Configuração do Banco
 
 1. Crie um banco de dados no MySQL:
-   ```sql
-   CREATE DATABASE cadastro_api;
-   ```
+```sql
+CREATE DATABASE cadastro;
+ ```
 Atualize o arquivo application.properties com suas credenciais:
 
-properties
-
-spring.datasource.url=jdbc:mysql://localhost:3306/cadastro_api
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/cadastro
 spring.datasource.username=SEU_USUARIO
 spring.datasource.password=SUA_SENHA
+```
 O Flyway será responsável por rodar automaticamente as migrations assim que o projeto for iniciado.
 
-properties
 
 Rodando a aplicação
 
@@ -74,7 +73,7 @@ http://localhost:8080/usuarios
 Acesse a documentação gerada automaticamente em:
 http://localhost:8080/swagger-ui.html
 
-📌 Próximos Passos
+### 📌 Próximos Passos
  Criar uma interface web responsiva para consumo da API
 
  Adicionar novas entidades com relacionamentos (OneToMany, ManyToOne, etc)
@@ -84,10 +83,12 @@ http://localhost:8080/swagger-ui.html
  Criar testes automatizados (JUnit + Mockito)
 
 
-🤝 Contribuição
+### 🤝 Contribuição
 Este projeto está em fase de desenvolvimento contínuo, com o objetivo de aprendizado e evolução pessoal. Sugestões e contribuições são sempre bem-vindas!
 
-🧑‍💻 Desenvolvido por
-Vitor de Souza Ramos
-LinkedIn | GitHub
-Acadêmico de Ciência da Computação | UNESC
+## 🧑‍💻 Desenvolvido por
+
+- Vitor de Souza Ramos
+- Estudante de Ciência da Computação na UNESC
+- [GitHub](https://github.com/vitor-sramos).
+- [LinkedIn](https://www.linkedin.com/in/vitor-ramos-934302349).
