@@ -1,4 +1,4 @@
-# Gerênciamento de Cadastros
+# Gerenciamento de Cadastros
 
 API REST desenvolvida com o objetivo de praticar e aprimorar habilidades em desenvolvimento backend com Java e Spring Boot.
 O sistema é focado em **cadastros diversos**, inicialmente de usuários, mas com a estrutura preparada para suportar múltiplas entidades e relacionamentos entre elas.
