@@ -52,7 +52,7 @@ public class GlobalExceptionsHandler {
 
     // PARÂMETRO INVÁLIDO
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Object> argumentoInvalidoHandle(MethodArgumentTypeMismatchException ex,
+    public ResponseEntity<Object> argumentoInvalidoHandler(MethodArgumentTypeMismatchException ex,
                                                           HttpServletRequest request) {
         String message = String
                 .format("O parâmetro informado '%s' ,não é um id válido! O id deve ser do tipo UUID", ex.getValue());

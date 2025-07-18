@@ -19,6 +19,6 @@ public record UsuarioRequestDto(
 
         @Schema(example = "12345")
         @NotBlank(message = "Senha é obrigatório")
-                @Size(min = 5, message = "A senha deve conter no mínimo 5 caracteres")
+        @Size(min = 5, max = 8, message = "A senha deve conter entre 5 e 8 caracteres")
         String senha
 ) {}

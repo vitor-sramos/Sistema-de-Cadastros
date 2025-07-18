@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vitor.dev.com.Cadastro.Usuario.Dto.UsuarioRequestDto;
+import vitor.dev.com.Cadastro.Usuario.Dto.UsuarioRequestUpdateDto;
 import vitor.dev.com.Cadastro.Usuario.Dto.UsuarioResponseDto;
 import vitor.dev.com.Cadastro.Usuario.Exceptions.ExceptionsDTO.*;
 import vitor.dev.com.Cadastro.Usuario.Service.UsuarioService;
@@ -136,7 +137,7 @@ public class UsuarioController {
     @Operation(
             summary = "Atualiza usuário pelo id",
             description = "informe o id do usuário que deseja atualizar",
-            method = "PATCH"
+            method = "PUT"
     )
     @ApiResponses(value = {
             @ApiResponse(
@@ -170,8 +171,8 @@ public class UsuarioController {
                     content = @Content(schema = @Schema(implementation = InternalServerErrorExceptionDTO.class))
             )
     })
-    @PatchMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDto> usuarioUpdate(@RequestBody UsuarioRequestDto requestDto,
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDto> usuarioUpdate(@Valid @RequestBody UsuarioRequestUpdateDto requestDto,
                                                              @PathVariable UUID id) {
         service.usuarioById(id);
         return ResponseEntity.ok(service.usuarioUpdate(requestDto, id));
