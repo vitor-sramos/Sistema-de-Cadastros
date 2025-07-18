@@ -54,6 +54,17 @@ public class UsuarioService {
         Usuario usuario = repository.findById(id).orElseThrow(
                 () -> new RecursoNaoEncontradoException("Usuário não encontrado com id: " + id)
         ) ;
+
+        if(repository.existsByUsuario(requestDto.usuario()) &&
+                !usuario.getUsuario().equals(requestDto.usuario())) {
+            throw new RecursoDuplicadoException("Usuário já existe");
+        }
+
+        if (repository.existsByEmail(requestDto.email()) &&
+                !usuario.getEmail().equals(requestDto.email())) {
+            throw new RecursoDuplicadoException("E-mail já existe");
+        }
+
         mapper.usuarioUpdate(requestDto, usuario);
         repository.save(usuario);
         return mapper.paraUsuarioResponseDto(usuario);
