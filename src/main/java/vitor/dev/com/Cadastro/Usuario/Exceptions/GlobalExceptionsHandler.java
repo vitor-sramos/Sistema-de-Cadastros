@@ -29,7 +29,7 @@ public class GlobalExceptionsHandler {
 
     // ARGUMENTO INVÁLIDO OU FALTANDO
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> recursoInvalidoHandler(MethodArgumentNotValidException ex,
+    public ResponseEntity<BadRequestInvalidExceptionDTO> recursoInvalidoHandler(MethodArgumentNotValidException ex,
                                                          HttpServletRequest request) {
 
         Map<String, String> fieldErrors = new LinkedHashMap<>();
@@ -44,7 +44,7 @@ public class GlobalExceptionsHandler {
 
     // RECURSO NÃO ENCONTRADO
     @ExceptionHandler(RecursoNaoEncontradoException.class)
-    public ResponseEntity<Object> recursoNaoEncontradoHandler(RecursoNaoEncontradoException ex,
+    public ResponseEntity<NotFoundExceptionDTO> recursoNaoEncontradoHandler(RecursoNaoEncontradoException ex,
                                                               HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(buildResponseNotFound(HttpStatus.NOT_FOUND, ex.getMessage(), request.getServletPath()));
@@ -52,7 +52,7 @@ public class GlobalExceptionsHandler {
 
     // PARÂMETRO INVÁLIDO
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Object> argumentoInvalidoHandler(MethodArgumentTypeMismatchException ex,
+    public ResponseEntity<BadRequestExceptionDTO> argumentoInvalidoHandler(MethodArgumentTypeMismatchException ex,
                                                           HttpServletRequest request) {
         String message = String
                 .format("O parâmetro informado '%s' ,não é um id válido! O id deve ser do tipo UUID", ex.getValue());
@@ -63,7 +63,7 @@ public class GlobalExceptionsHandler {
 
     // ROTA INEXISTENTE
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<Object> rotaNaoExistenteHandler(NoHandlerFoundException ex, HttpServletRequest request) {
+    public ResponseEntity<NotFoundExceptionDTO> rotaNaoExistenteHandler(NoHandlerFoundException ex, HttpServletRequest request) {
 
         String message = String
                 .format("Rota '%s' não existente, verifique a URL e tente novamente.", request.getRequestURI());
@@ -74,7 +74,7 @@ public class GlobalExceptionsHandler {
 
     // ERRO GENÉRICO
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> erroInternoServidorHandler(Exception ex, HttpServletRequest request) {
+    public ResponseEntity<InternalServerErrorExceptionDTO> erroInternoServidorHandler(Exception ex, HttpServletRequest request) {
         String message = "Erro interno do servidor";
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(buildResponseInternalServerError(HttpStatus.INTERNAL_SERVER_ERROR, message, request.getServletPath()));
