@@ -1,11 +1,13 @@
 package vitor.dev.com.Cadastro.Usuario.Exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import vitor.dev.com.Cadastro.Usuario.Exceptions.ExceptionsDTO.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@Component
 public class BuildExceptionResponse {
 
     // MÉTODOS PARA CONSTRUIR A RESPOSTA DE CADA EXCEÇÃO

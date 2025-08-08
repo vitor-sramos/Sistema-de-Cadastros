@@ -1,7 +1,7 @@
 package vitor.dev.com.Cadastro.Usuario.Exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,9 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
+@AllArgsConstructor
 public class GlobalExceptionsHandler {
 
-    @Autowired
     private BuildExceptionResponse build;
 
     // RECURSO DUPLICADO
