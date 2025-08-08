@@ -1,6 +1,7 @@
 package vitor.dev.com.Cadastro.Usuario.Exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,12 +20,15 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionsHandler {
 
+    @Autowired
+    private BuildExceptionResponse build;
+
     // RECURSO DUPLICADO
     @ExceptionHandler(RecursoDuplicadoException.class)
     public ResponseEntity<Object> recursoDuplicadoHandler(RecursoDuplicadoException ex,
                                                           HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(buildResponseConflict(HttpStatus.CONFLICT, ex.getMessage(), request.getServletPath()));
+                .body(build.ResponseConflict(HttpStatus.CONFLICT, ex.getMessage(), request.getServletPath()));
     }
 
     // ARGUMENTO INVÁLIDO OU FALTANDO
@@ -39,7 +43,7 @@ public class GlobalExceptionsHandler {
         });
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(buildResponseBadRequestInvalid(HttpStatus.BAD_REQUEST, request.getServletPath(), fieldErrors));
+                .body(build.ResponseBadRequestInvalid(HttpStatus.BAD_REQUEST, request.getServletPath(), fieldErrors));
     }
 
     // RECURSO NÃO ENCONTRADO
@@ -47,7 +51,7 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<NotFoundExceptionDTO> recursoNaoEncontradoHandler(RecursoNaoEncontradoException ex,
                                                               HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(buildResponseNotFound(HttpStatus.NOT_FOUND, ex.getMessage(), request.getServletPath()));
+                .body(build.ResponseNotFound(HttpStatus.NOT_FOUND, ex.getMessage(), request.getServletPath()));
     }
 
     // PARÂMETRO INVÁLIDO
@@ -58,7 +62,7 @@ public class GlobalExceptionsHandler {
                 .format("O parâmetro informado '%s' ,não é um id válido! O id deve ser do tipo UUID", ex.getValue());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(buildResponseBadRequest(HttpStatus.BAD_REQUEST, message, request.getServletPath()));
+                .body(build.ResponseBadRequest(HttpStatus.BAD_REQUEST, message, request.getServletPath()));
     }
 
     // ROTA INEXISTENTE
@@ -69,7 +73,7 @@ public class GlobalExceptionsHandler {
                 .format("Rota '%s' não existente, verifique a URL e tente novamente.", request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(buildResponseNotFound(HttpStatus.NOT_FOUND, message, request.getRequestURI()));
+                .body(build.ResponseNotFound(HttpStatus.NOT_FOUND, message, request.getRequestURI()));
     }
 
     // ERRO GENÉRICO
@@ -77,57 +81,6 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<InternalServerErrorExceptionDTO> erroInternoServidorHandler(Exception ex, HttpServletRequest request) {
         String message = "Erro interno do servidor";
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(buildResponseInternalServerError(HttpStatus.INTERNAL_SERVER_ERROR, message, request.getServletPath()));
-    }
-
-    // MÉTODOS PARA CONSTRUIR A RESPOSTA DE CADA EXCEÇÃO
-    private ConflictExceptionDTO buildResponseConflict(HttpStatus status, String message, String path) {
-        return new ConflictExceptionDTO(
-                LocalDateTime.now(),
-                status.value(),
-                status.getReasonPhrase(),
-                message,
-                path
-        );
-    }
-
-    private BadRequestInvalidExceptionDTO buildResponseBadRequestInvalid(HttpStatus status, String path, Map<String,String> error) {
-        return new BadRequestInvalidExceptionDTO(
-                LocalDateTime.now(),
-                status.value(),
-                error,
-                status.getReasonPhrase(),
-                path
-        );
-    }
-
-    private NotFoundExceptionDTO buildResponseNotFound(HttpStatus status, String message, String path) {
-        return new NotFoundExceptionDTO(
-                LocalDateTime.now(),
-                status.value(),
-                status.getReasonPhrase(),
-                message,
-                path
-        );
-    }
-
-    private InternalServerErrorExceptionDTO buildResponseInternalServerError(HttpStatus status, String message, String path) {
-        return new InternalServerErrorExceptionDTO(
-                LocalDateTime.now(),
-                status.value(),
-                status.getReasonPhrase(),
-                message,
-                path
-        );
-    }
-
-    private BadRequestExceptionDTO buildResponseBadRequest(HttpStatus status, String message, String path) {
-        return new BadRequestExceptionDTO(
-                LocalDateTime.now(),
-                status.value(),
-                status.getReasonPhrase(),
-                message,
-                path
-        );
+                .body(build.ResponseInternalServerError(HttpStatus.INTERNAL_SERVER_ERROR, message, request.getServletPath()));
     }
 }
