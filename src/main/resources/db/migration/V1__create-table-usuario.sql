@@ -1,7 +1,6 @@
-create table tb_usuario(
-	id binary(16),
-    usuario varchar(100) not null unique,
-    email varchar(100) not null,
-    senha varchar(100) not null,
-    primary key(id)
+CREATE TABLE tb_usuario (
+    id UUID PRIMARY KEY,
+    usuario VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL
 );

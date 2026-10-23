@@ -12,6 +12,9 @@ target/
 .settings
 .springBeans
 .sts4-cache
+.env
+.env.*
+!.env.example
 
 ### IntelliJ IDEA ###
 .idea
